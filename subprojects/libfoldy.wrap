@@ -1,0 +1,4 @@
+[wrap-git]
+directory=libfoldy
+url=https://github.com/alt-gnome/libfoldy.git
+revision=main

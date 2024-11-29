@@ -1,0 +1,10 @@
+[Unit]
+Description=Phosh Wallpaper Daemon
+After=default.target
+
+[Service]
+ExecStart=@bindir@/foldyd
+Restart=always
+
+[Install]
+WantedBy=default.target
