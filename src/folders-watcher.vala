@@ -35,14 +35,11 @@ public sealed class FoldyD.FoldersWatcher : Object {
     }
 
     void folders_changed () {
-        var folder_to_add = new Gee.ArrayList<string> ();
-        var folder_to_remove = new Gee.ArrayList<string> ();
-
         string[] folders = Foldy.get_folders ();
 
         foreach (var folder_data in folder_datas) {
             if (!(folder_data.folder_id in folders)) {
-                folder_to_remove.add (folder_data.folder_id);
+                folder_datas.remove (folder_data);
             }
         }
 
@@ -56,20 +53,8 @@ public sealed class FoldyD.FoldersWatcher : Object {
             }
 
             if (!has) {
-                folder_to_add.add (folder_id);
+                folder_datas.add (new Folder.with_categories_fix (folder_id));
             }
-        }
-
-        foreach (string folder_id in folder_to_remove) {
-            foreach (Folder folder_data in folder_datas) {
-                if (folder_data.folder_id == folder_id) {
-                    folder_datas.remove (folder_data);
-                }
-            }
-        }
-
-        foreach (string folder_id in folder_to_add) {
-            folder_datas.add (new Folder.with_categories_fix (folder_id));
         }
     }
 

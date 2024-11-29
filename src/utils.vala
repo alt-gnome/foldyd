@@ -17,18 +17,28 @@
 
 namespace FoldyD {
     string[] get_categories_by_app_id (string app_id) {
-        var categories = new Array<string> ();
+        var categories = new Gee.ArrayList<string> ();
 
         var desktop = new DesktopAppInfo (app_id);
-        var raw_categories = desktop.get_categories ().split (";");
+        string? categories_string = desktop.get_categories ();
+
+        if (categories_string == null) {
+            return {};
+        }
+
+        if (categories_string.length == 0) {
+            return {};
+        }
+
+        var raw_categories = categories_string.split (";");
 
         foreach (var raw_category in raw_categories) {
             if (raw_category.length > 0) {
-                categories.append_val (raw_category);
+                categories.add (raw_category);
             }
         }
 
-        return categories.data;
+        return categories.to_array ();
     }
 
     string[] get_app_ids_by_category (string category) {
