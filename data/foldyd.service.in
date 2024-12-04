@@ -1,5 +1,5 @@
 [Unit]
-Description=Phosh Wallpaper Daemon
+Description=Folder Manager Dameon
 After=default.target
 
 [Service]
